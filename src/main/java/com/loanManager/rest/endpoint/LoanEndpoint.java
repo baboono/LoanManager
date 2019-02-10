@@ -113,10 +113,10 @@ public class LoanEndpoint extends BaseEndpoint {
 	}
 
 	@RequestMapping(path = "/v1/loan/extend", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update existing loan by adding new term", notes = "Term must be above 1 and loan must exist. Due date of loan gets updated", response = String.class)
+	@ApiOperation(value = "Update existing loan by adding new term", notes = "Loan must exist. Due date of loan gets updated", response = String.class)
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Succesfully extended loan"),
-			@ApiResponse(code = 400, message = "Wrong type of parameters are supplied.Loan id and term must be above 1"),
+			@ApiResponse(code = 400, message = "Wrong type of parameters are supplied. Loan id and term must be above 1"),
 			@ApiResponse(code = 404, message = "Loan with this id is not found") ,
 			@ApiResponse(code = 304, message = "Loan was found but could not extend")})
 	public ResponseEntity<Object> extend(@Min(1)  @ApiParam(value = "loanId", required = true) @RequestHeader(name = HEADER_LOAN_ID, required = true) Long loanId)
