@@ -1,5 +1,10 @@
 # Loan manager Demo
+Standard maven/spring boot configuration
+mvn clean install to build the project
+mvn spring-boot:run to run the project
+All external property configuration placed in application.properties file. 
 
+Happy reviewing!
 
 ### Endpoints
 
