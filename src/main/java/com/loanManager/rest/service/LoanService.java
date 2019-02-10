@@ -48,6 +48,7 @@ public class LoanService extends FinancialInstrumentService {
 	}
 
 	@Override
+	@Transactional
 	public Loan save(FinancialInstrument loan) throws FinancialInstrumentException {
 		Loan loanInstance = getInstance(loan);
 		loan = setupNewLoan(loanInstance);
@@ -59,6 +60,7 @@ public class LoanService extends FinancialInstrumentService {
 		}
 	}
 	@Override
+	@Transactional
 	public Loan update(FinancialInstrument loan) throws FinancialInstrumentException {
 		try {
 			return repository.saveAndFlush(getInstance(loan));
