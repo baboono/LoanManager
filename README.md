@@ -1,8 +1,14 @@
 # Loan manager Demo
-Standard maven/spring boot configuration
-mvn clean install to build the project
-mvn spring-boot:run to run the project
-All external property configuration placed in application.properties file. 
+Standard maven/spring boot configuration.
+<mvn clean install> to build the project.
+<mvn spring-boot:run> to run the project.
+
+If run locally server available on http://localhost:8090/ + ENDPOINT
+
+All external property configuration placed in application.properties file.
+
+For more information about loan endpoints run get  http://localhost:8090/swagger-ui.html 
+
 
 Happy reviewing!
 
