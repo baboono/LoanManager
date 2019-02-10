@@ -67,8 +67,8 @@ public class LoanEndpointMockedTest extends BaseEndpointTest {
 	@Test
 	public void extendLoan() throws Exception {
 		testLoan = new Loan(12L, BigDecimal.ONE);
-		mockMvc.perform(put("/v1/loan/extend").contentType(JSON_MEDIA_TYPE).header("loanId", "1")
-				.header("extendPeriod", "10")).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(put("/v1/loan/extend").contentType(JSON_MEDIA_TYPE).header("loanId", "1")).
+		andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test(expected = NestedServletException.class)

@@ -49,7 +49,7 @@ public class LoanEndpoint extends BaseEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(LoanEndpoint.class);
 	static final int DEFAULT_PAGE_SIZE = 10;
-	static final String HEADER_EXTEND_PERIOD = "extendPeriod";
+	//static final String HEADER_EXTEND_PERIOD = "extendPeriod";
 	static final String HEADER_LOAN_ID = "loanId";
 
 	@Autowired
@@ -119,8 +119,9 @@ public class LoanEndpoint extends BaseEndpoint {
 			@ApiResponse(code = 400, message = "Wrong type of parameters are supplied.Loan id and term must be above 1"),
 			@ApiResponse(code = 404, message = "Loan with this id is not found") ,
 			@ApiResponse(code = 304, message = "Loan was found but could not extend")})
-	public ResponseEntity<Object> extend(@Min(1)  @ApiParam(value = "loanId", required = true) @RequestHeader(name = HEADER_LOAN_ID, required = true) Long loanId,
-										 @Min(1)  @ApiParam(value = "extendPeriod", required = true, defaultValue = "1") @RequestHeader(name = HEADER_EXTEND_PERIOD, required = true) Long extendPeriod) {
+	public ResponseEntity<Object> extend(@Min(1)  @ApiParam(value = "loanId", required = true) @RequestHeader(name = HEADER_LOAN_ID, required = true) Long loanId)
+			//,@Min(1)  @ApiParam(value = "extendPeriod", required = true, defaultValue = "1") @RequestHeader(name = HEADER_EXTEND_PERIOD, required = true) Long extendPeriod)
+	{
 		FinancialInstrument loan;
 		try {
 			loan = loanService.findOne(loanId);	
@@ -130,7 +131,7 @@ public class LoanEndpoint extends BaseEndpoint {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		try {
-			loanService.extend(loan, extendPeriod);
+			loanService.extend(loan);//, extendPeriod);
 		} catch (FinancialInstrumentException e) {
 			log.warn(messageSource.getMessage("loan.notExtended",null, Locale.getDefault()) + " Id:"+ loanId);
 			return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();

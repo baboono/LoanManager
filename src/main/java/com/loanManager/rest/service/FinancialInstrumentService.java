@@ -23,7 +23,7 @@ public abstract class FinancialInstrumentService {
 
 	abstract FinancialInstrument findOne(Long id) throws FinancialInstrumentException;
 
-	abstract void extend(FinancialInstrument financialInstrument,long term) throws FinancialInstrumentException;
+	abstract void extend(FinancialInstrument financialInstrument) throws FinancialInstrumentException;
 	
 	abstract FinancialInstrument update(FinancialInstrument financialInstrument) throws FinancialInstrumentException;
 	

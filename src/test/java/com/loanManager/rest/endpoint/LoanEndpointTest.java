@@ -135,17 +135,15 @@ public class LoanEndpointTest extends BaseEndpointTest {
      */
     @Test
     public void createLoanExtendedSuccess() throws Exception {
-    	int extendPeriod = 10;
     	Loan testLoan = loanService.save(createLoan(10L,new BigDecimal(11.5)));
-		mockMvc.perform(put("/v1/loan/extend").contentType(JSON_MEDIA_TYPE).header("loanId",testLoan.getId())
-		.header("extendPeriod", extendPeriod)).andDo(print())
+		mockMvc.perform(put("/v1/loan/extend").contentType(JSON_MEDIA_TYPE).header("loanId",testLoan.getId())).andDo(print())
 		.andExpect(status().isOk());		
 		mockMvc.perform(get("/v1/loan/{id}", testLoan.getId())).andDo(print()).andExpect(status().isOk())
     	.andDo(mvcResult -> {
             String json = mvcResult.getResponse().getContentAsString();
             Loan returnedLoan = (Loan) convertJSONStringToObject(json);
             LocalDateTime createdLoanDueTime = LocalDateTime.ofInstant(returnedLoan.getDueDate().toInstant(), ZoneId.systemDefault());
-            LocalDateTime dueFromNow = LocalDateTime.now().plusDays(returnedLoan.getTerm() + extendPeriod);
+            LocalDateTime dueFromNow = LocalDateTime.now().plusDays(returnedLoan.getTerm() + applicationProperties.getDefaultExtendTerm());
             if(!createdLoanDueTime.getMonth().equals(dueFromNow.getMonth()))
             fail("Created date time MONTH not match"+createdLoanDueTime);
             if(!(createdLoanDueTime.getYear()==dueFromNow.getYear()))

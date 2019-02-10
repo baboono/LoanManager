@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.loanManager.enums.TermUnit;
+import com.loanManager.rest.config.ApplicationProperties;
 import com.loanManager.rest.domain.FinancialInstrument;
 import com.loanManager.rest.domain.Loan;
 import com.loanManager.rest.endpoint.error.FinancialInstrumentException;
@@ -29,6 +30,8 @@ public class LoanService extends FinancialInstrumentService {
 
 	@Autowired
 	private LoanRepository repository;
+	@Autowired
+	private ApplicationProperties applicationProperties;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -70,10 +73,10 @@ public class LoanService extends FinancialInstrumentService {
 	}
 
 	@Override
-	public void extend(FinancialInstrument financialInstrument, long term) throws FinancialInstrumentException {
+	public void extend(FinancialInstrument financialInstrument) throws FinancialInstrumentException {
 		Loan loan = getInstance(financialInstrument);
 		TermUnit termUnit = loan.getTermUnit();
-		ZonedDateTime localDateTime = adjustDate(financialInstrument.getDueDate(),term,termUnit);
+		ZonedDateTime localDateTime = adjustDate(financialInstrument.getDueDate(),applicationProperties.getDefaultExtendTerm(),termUnit);
 		Date dueDate = Date
 				.from(ZonedDateTime.parse(localDateTime.toString()).toInstant());
 		loan.setDueDate(dueDate);

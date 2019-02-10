@@ -36,12 +36,16 @@ public class ApplicationProperties {
     @Value("${loanManagerDemo.config.loan.maxTerm}")
     private Long loanMaxTerm;
     
+    @Value("${loanManagerDemo.config.loan.defaultExtendTerm}")
+    private Long defaultExtendTerm;
+     
     @Value("${loanManagerDemo.config.loan.maxTermUnit.default}")
     private TermUnit loanMaxTermUnit;
     
     @Value("${loanManagerDemo.config.loan.cost}")
     private BigDecimal loanCostMultipier;
 
+    
 	public BigDecimal getLoanCostMultipier() {
 		return loanCostMultipier;
 	}
@@ -72,6 +76,10 @@ public class ApplicationProperties {
 
 	public void setLoanMinRejectTime(String loanMinRejectTime) {
 		this.loanMinRejectTime = loanMinRejectTime;
+	}
+
+	public Long getDefaultExtendTerm() {
+		return defaultExtendTerm;
 	}
 
 
